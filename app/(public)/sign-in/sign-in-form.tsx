@@ -15,6 +15,7 @@ import { FormEvent, useRef, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export function SignInForm({
   className,
@@ -23,6 +24,8 @@ export function SignInForm({
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +36,14 @@ export function SignInForm({
       redirect: false,
     });
     if (result.error) {
-      toast('Error signing up', { description: 'Invalid email or password' });
+      toast.error('Error signing up', {
+        description: 'Invalid email or password',
+      });
+    } else if (result.ok) {
+      toast.success('Signed In Succesfully!', {
+        description: 'Redirecting to dashboard',
+      });
+      router.push('/dashboard');
     }
     setIsLoading(false);
   };

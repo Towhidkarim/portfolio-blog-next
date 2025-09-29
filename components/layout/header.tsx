@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,9 @@ export function Header() {
       <div className='mx-auto px-6 py-4 container'>
         <div className='flex justify-between items-center'>
           {/* Logo/Name */}
-          <div className='font-bold text-foreground text-xl'>Towhid Karim</div>
+          <Link href='/' className='font-bold text-foreground text-xl'>
+            Towhid Karim
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className='hidden md:flex items-center space-x-8'>

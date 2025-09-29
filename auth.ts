@@ -24,14 +24,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           }),
         });
 
-        // const data: TResponse<{
-        //     id: number,
-        // }> = await res.json()
-        console.log(await res.json());
+        const responseData: TResponse<{
+          id: number;
+          userName: string;
+          email: string;
+        } | null> = await res.json();
 
+        user = responseData.data;
         if (!user) {
           // No user found, so this is their first attempt to login
           // Optionally, this is also the place you could do a user registration
+
           throw new Error('Invalid credentials.');
         }
 
