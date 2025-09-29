@@ -1,0 +1,68 @@
+'use client';
+
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
+
+export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: 'About', href: '#about' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Blog', href: '#blog' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  return (
+    <header className='top-0 right-0 left-0 z-50 fixed bg-background/80 backdrop-blur-md border-b border-border'>
+      <div className='mx-auto px-6 py-4 container'>
+        <div className='flex justify-between items-center'>
+          {/* Logo/Name */}
+          <div className='font-bold text-foreground text-xl'>Towhid Karim</div>
+
+          {/* Desktop Navigation */}
+          <nav className='hidden md:flex items-center space-x-8'>
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className='font-medium text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant='ghost'
+            size='sm'
+            className='md:hidden'
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </Button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className='md:hidden mt-4 pt-4 pb-4 border-t border-border'>
+            <div className='flex flex-col space-y-3'>
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className='py-2 font-medium text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
+      </div>
+    </header>
+  );
+}
