@@ -13,17 +13,6 @@ import { TPost } from '@/zod/post.typeschema';
 import { TResponse } from '@/zod/response.typeschema';
 import Link from 'next/link';
 
-interface BlogPost {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  readTime: string;
-  category: string;
-  slug: string;
-}
-
 export async function BlogSection() {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const res = await fetch(`${url}/api/posts/get-all`, {
@@ -31,7 +20,7 @@ export async function BlogSection() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60 },
+    next: { revalidate: 60, tags: ['blog'] },
   });
   const resData: TResponse<TPost[]> = await res.json();
   return (
