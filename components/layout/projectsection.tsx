@@ -10,9 +10,22 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { GetAllProjectsAction } from '@/actions/GetAllProjectsAction';
+import { TResponse } from '@/zod/response.typeschema';
+import { TPost } from '@/zod/post.typeschema';
+import { TProject } from '@/zod/project.typeschema';
 
 export async function ProjectsSection() {
-  const projects = await GetAllProjectsAction();
+  // const projects = await GetAllProjectsAction();
+
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const res = await fetch(`${url}/api/projects/get-all`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 60 },
+  });
+  const resData: TResponse<TProject[]> = await res.json();
   return (
     <section id='projects' className='px-6 py-20'>
       <div className='mx-auto max-w-6xl container'>
@@ -29,7 +42,7 @@ export async function ProjectsSection() {
 
         {/* Projects grid */}
         <div className='gap-8 grid grid-cols-1 md:grid-cols-2'>
-          {projects.map((project) => (
+          {resData.data.map((project) => (
             <Card
               key={project.id}
               className='group bg-card hover:bg-card/80 border-border overflow-hidden transition-colors duration-300'

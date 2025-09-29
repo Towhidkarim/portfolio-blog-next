@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import { TPost } from '@/zod/post.typeschema';
+import { TResponse } from '@/zod/response.typeschema';
+import Link from 'next/link';
 
 interface BlogPost {
   id: string;
@@ -21,43 +24,16 @@ interface BlogPost {
   slug: string;
 }
 
-const blogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Building Scalable React Applications with TypeScript',
-    description:
-      'Learn how to structure large React applications using TypeScript, focusing on maintainability, type safety, and developer experience.',
-    image: '/placeholder.svg?height=200&width=400',
-    date: '2024-01-15',
-    readTime: '8 min read',
-    category: 'React',
-    slug: 'building-scalable-react-applications-typescript',
-  },
-  {
-    id: '2',
-    title: 'The Complete Guide to Next.js App Router',
-    description:
-      'Explore the new App Router in Next.js 13+, including server components, streaming, and advanced routing patterns.',
-    image: '/placeholder.svg?height=200&width=400',
-    date: '2024-01-08',
-    readTime: '12 min read',
-    category: 'Next.js',
-    slug: 'complete-guide-nextjs-app-router',
-  },
-  {
-    id: '3',
-    title: "Optimizing Web Performance: A Developer's Guide",
-    description:
-      'Practical techniques for improving web performance, from image optimization to code splitting and caching strategies.',
-    image: '/placeholder.svg?height=200&width=400',
-    date: '2024-01-01',
-    readTime: '10 min read',
-    category: 'Performance',
-    slug: 'optimizing-web-performance-developers-guide',
-  },
-];
-
-export function BlogSection() {
+export async function BlogSection() {
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const res = await fetch(`${url}/api/posts/get-all`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 60 },
+  });
+  const resData: TResponse<TPost[]> = await res.json();
   return (
     <section id='blog' className='bg-muted/30 px-6 py-20'>
       <div className='mx-auto max-w-6xl container'>
@@ -74,7 +50,7 @@ export function BlogSection() {
 
         {/* Blog posts grid */}
         <div className='gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-          {blogPosts.map((post) => (
+          {resData.data.map((post) => (
             <Card
               key={post.id}
               className='group bg-card hover:bg-card/80 hover:shadow-lg border-border overflow-hidden transition-all duration-300'
@@ -82,7 +58,8 @@ export function BlogSection() {
               {/* Blog post image */}
               <div className='relative overflow-hidden'>
                 <Image
-                  src={post.image || '/placeholder.svg'}
+                  // src={post.thumbnailUrl || '/placeholder.svg'}
+                  src={'/placeholder.svg'}
                   alt={post.title}
                   width={400}
                   height={200}
@@ -93,7 +70,7 @@ export function BlogSection() {
                     variant='secondary'
                     className='bg-background/90 text-foreground'
                   >
-                    {post.category}
+                    {`Blog`}
                   </Badge>
                 </div>
               </div>
@@ -102,14 +79,17 @@ export function BlogSection() {
                 <div className='flex items-center gap-2 mb-2 text-muted-foreground text-sm'>
                   <Calendar size={14} />
                   <span>
-                    {new Date(post.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
+                    {new Date(post.createdAt ?? new Date()).toLocaleDateString(
+                      'en-US',
+                      {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      }
+                    )}
                   </span>
                   <span>•</span>
-                  <span>{post.readTime}</span>
+                  <span>{`2 Minutes`}</span>
                 </div>
                 <CardTitle className='text-card-foreground group-hover:text-primary text-lg leading-tight transition-colors duration-200'>
                   {post.title}
@@ -128,8 +108,8 @@ export function BlogSection() {
                   asChild
                   className='group/btn p-0 h-auto font-medium'
                 >
-                  <a
-                    href={`/blog/${post.slug}`}
+                  <Link
+                    href={`/blog/${post.id}`}
                     className='flex items-center gap-2'
                   >
                     Read More
@@ -137,7 +117,7 @@ export function BlogSection() {
                       size={16}
                       className='transition-transform group-hover/btn:translate-x-1 duration-200'
                     />
-                  </a>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
