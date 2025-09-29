@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
+import { BASIC_INFO } from '@/lib/contants';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
   return (
@@ -32,40 +34,40 @@ export function HeroSection() {
           {/* Social links */}
           <div className='flex justify-center items-center space-x-6'>
             <Button variant='ghost' size='sm' asChild>
-              <a
-                href='https://github.com'
+              <Link
+                href={BASIC_INFO.github}
                 target='_blank'
                 rel='noopener noreferrer'
               >
                 <Github size={20} />
                 <span className='sr-only'>GitHub</span>
-              </a>
+              </Link>
             </Button>
             <Button variant='ghost' size='sm' asChild>
-              <a
-                href='https://linkedin.com'
+              <Link
+                href={BASIC_INFO.linkedIn}
                 target='_blank'
                 rel='noopener noreferrer'
               >
                 <Linkedin size={20} />
                 <span className='sr-only'>LinkedIn</span>
-              </a>
+              </Link>
             </Button>
             <Button variant='ghost' size='sm' asChild>
-              <a href='mailto:towhidkarim123@gmail.com'>
+              <Link href={`mailto:towhidkarim123@gmail.com`}>
                 <Mail size={20} />
                 <span className='sr-only'>Email</span>
-              </a>
+              </Link>
             </Button>
           </div>
 
           {/* CTA buttons */}
           <div className='flex sm:flex-row flex-col justify-center items-center gap-4 pt-4'>
             <Button size='lg' asChild>
-              <a href='#projects'>View My Work</a>
+              <Link href='#projects'>View My Work</Link>
             </Button>
             <Button variant='outline' size='lg' asChild>
-              <a href='#contact'>Get In Touch</a>
+              <Link href='#contact'>Get In Touch</Link>
             </Button>
           </div>
 
