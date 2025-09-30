@@ -9,12 +9,14 @@ import Highlight from '@tiptap/extension-highlight';
 
 interface RichTextEditorProps {
   content: string;
+  editorClassNames?: string;
   onChange?: (content: string) => void;
   editable?: boolean;
 }
 export default function RichTextEditor({
   content,
   onChange,
+  editorClassNames,
   editable,
 }: RichTextEditorProps) {
   const isEditable = editable ?? true;
@@ -56,7 +58,10 @@ export default function RichTextEditor({
   return (
     <div>
       {isEditable && <MenuBar editor={editor} />}
-      <EditorContent editor={editor} />
+      <EditorContent
+        className='[&_.ProseMirror]:min-h-[300px] [&_.ProseMirror]:overflow-auto [&_.ProseMirror]:resize-y'
+        editor={editor}
+      />
     </div>
   );
 }

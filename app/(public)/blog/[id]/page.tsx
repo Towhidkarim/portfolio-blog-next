@@ -5,6 +5,7 @@ import { TPost } from '@/zod/post.typeschema';
 import { TResponse } from '@/zod/response.typeschema';
 
 import { ArrowLeft, Edit } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -15,13 +16,34 @@ export async function generateStaticParams() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60, tags: ['project'] },
+    next: { revalidate: 60, tags: ['posts'] },
   });
   const resData: TResponse<TPost[]> = await res.json();
 
   return resData.data.map((post) => ({
     id: String(post.id),
   }));
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await props.params;
+
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const res = await fetch(`${url}/api/posts/get/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 60 },
+  });
+  const resData: TResponse<TPost> = await res.json();
+
+  return {
+    title: resData.data.title,
+    description: resData.data.description,
+  };
 }
 
 export default async function PostPage(props: {
@@ -35,7 +57,7 @@ export default async function PostPage(props: {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60, tags: ['project'] },
+    next: { revalidate: 60, tags: ['posts'] },
   });
   const resData: TResponse<TPost> = await res.json();
 

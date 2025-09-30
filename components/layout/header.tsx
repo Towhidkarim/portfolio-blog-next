@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const session = useSession();
 
   const navItems = [
     { name: 'About', href: '#about' },
@@ -27,14 +29,20 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className='hidden md:flex items-center space-x-8'>
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className='font-medium text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
+
+            <Button asChild>
+              <Link href={session.data ? '/dashboard' : '/sign-in'}>
+                {session.data ? 'Dashboard' : 'Sign In'}
+              </Link>
+            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -52,15 +60,20 @@ export function Header() {
         {isMenuOpen && (
           <nav className='md:hidden mt-4 pt-4 pb-4 border-t border-border'>
             <div className='flex flex-col space-y-3'>
+              <Button asChild>
+                <Link href={session.data ? '/dashboard' : '/sign-in'}>
+                  {session.data ? 'Dashboard' : 'Sign In'}
+                </Link>
+              </Button>
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className='py-2 font-medium text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </nav>
