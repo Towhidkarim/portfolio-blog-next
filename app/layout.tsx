@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import Providers from '@/components/providers';
+import NextTopLoader from 'nextjs-toploader';
 
 const poppins = Poppins({
   weight: ['200', '300', '400', '500', '600', '700'],
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${poppins.className}  antialiased`}>
         <Providers>
           <Toaster />
+          <NextTopLoader />
           {children}
         </Providers>
       </body>

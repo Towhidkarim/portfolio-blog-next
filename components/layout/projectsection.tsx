@@ -23,7 +23,7 @@ export async function ProjectsSection() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60, tags: ['project'] },
+    next: { revalidate: 60, tags: ['projects'] },
   });
   const resData: TResponse<TProject[]> = await res.json();
   return (
