@@ -39,7 +39,7 @@ export async function BlogSection() {
 
         {/* Blog posts grid */}
         <div className='gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-          {resData.data.reverse().map((post) => (
+          {resData.data.map((post) => (
             <Card
               key={post.id}
               className='group bg-card hover:bg-card/80 hover:shadow-lg border-border overflow-hidden transition-all duration-300'
