@@ -1,10 +1,13 @@
 'use client';
 
+import { CreatePostAction } from '@/actions/CreatePostAction';
 import UploadWidget from '@/components/features/imageupload/upload-widget';
 import RichTextEditor from '@/components/features/text-editor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { TPost } from '@/zod/post.typeschema';
+import { TResponse } from '@/zod/response.typeschema';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,11 +24,24 @@ export default function CreatePage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!imageUrl) {
+      toast.error('Please Upload a thumbnail image');
+      return;
+    }
     setIsSubmitting(true);
+
+    const createPost = await CreatePostAction({
+      title,
+      content,
+      description,
+      thumbnailUrl: imageUrl,
+    });
+    if (createPost.succes) toast.success('Post Creation successful!');
+    setIsSubmitting(false);
   };
 
   return (
-    <section className='mx-auto py-20 max-w-6xl'>
+    <section className='mx-auto px-4 py-20 max-w-6xl'>
       <div className='mb-6'>
         <Link href={`/`}>
           <Button variant='outline' size='sm'>

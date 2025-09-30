@@ -16,14 +16,20 @@ export default function UploadWidget({
         onSuccess={(result, { widget }) => {
           //@ts-ignore
           setImageUrl(result.info.secure_url);
-          onUploadComplete(imageUrl);
+          //@ts-ignore
+          onUploadComplete(String(result.info.secure_url));
+          //   console.log(result.info.secure_url);
           //   if (result?.info) {
           //     // setImageUrl(result.info); // get Cloudinary URL
           //     // console.log('Uploaded image URL:', result.info);
           //   }
         }}
       >
-        {({ open }) => <Button onClick={() => open()}>Upload an Image</Button>}
+        {({ open }) => (
+          <Button type='button' onClick={() => open()}>
+            Upload an Image
+          </Button>
+        )}
       </CldUploadWidget>
     </>
   );

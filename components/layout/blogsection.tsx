@@ -20,7 +20,7 @@ export async function BlogSection() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60, tags: ['blog'] },
+    next: { revalidate: 60, tags: ['posts'] },
   });
   const resData: TResponse<TPost[]> = await res.json();
   return (
