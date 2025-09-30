@@ -29,13 +29,13 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className='hidden md:flex items-center space-x-8'>
             {navItems.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className='font-medium text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
 
             <Button asChild>

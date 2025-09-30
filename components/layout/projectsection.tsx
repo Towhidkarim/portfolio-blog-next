@@ -13,6 +13,7 @@ import { GetAllProjectsAction } from '@/actions/GetAllProjectsAction';
 import { TResponse } from '@/zod/response.typeschema';
 import { TPost } from '@/zod/post.typeschema';
 import { TProject } from '@/zod/project.typeschema';
+import Link from 'next/link';
 
 export async function ProjectsSection() {
   // const projects = await GetAllProjectsAction();
@@ -50,7 +51,7 @@ export async function ProjectsSection() {
               {/* Project image */}
               <div className='relative overflow-hidden'>
                 <Image
-                  src={'/placeholder.svg'}
+                  src={project.thumbnailUrl ?? '/placeholder.png'}
                   alt={project.name}
                   width={500}
                   height={300}
@@ -113,7 +114,7 @@ export async function ProjectsSection() {
         {/* View all projects button */}
         <div className='mt-12 text-center'>
           <Button variant='outline' size='lg' asChild>
-            <a href='/projects'>View All Projects</a>
+            <Link href='/projects'>View All Projects</Link>
           </Button>
         </div>
       </div>

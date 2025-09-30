@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { Card } from '@/components/ui/card';
-import { FileText, FolderKanban } from 'lucide-react';
+import { ArrowLeft, FileText, FolderKanban } from 'lucide-react';
 import { TResponse } from '@/zod/response.typeschema';
 import { TPost } from '@/zod/post.typeschema';
 import { TProject } from '@/zod/project.typeschema';
 import ItemActions from '@/components/ui/item-actions';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import LogoutButton from './logoutbutton';
 
 export default async function page() {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -41,6 +43,15 @@ export default async function page() {
   return (
     <div className='p-8'>
       <div className='mb-6'>
+        <div className='flex justify-between mb-6 w-full'>
+          <Button variant='outline' size='sm' asChild>
+            <Link href={`/`}>
+              <ArrowLeft className='mr-2 w-4 h-4' />
+              Home
+            </Link>
+          </Button>
+          <LogoutButton />
+        </div>
         <h1 className='mb-2 font-bold text-foreground text-3xl'>Overview</h1>
         <p className='text-muted-foreground'>
           Welcome back! Here's what's happening with your portfolio.

@@ -76,6 +76,7 @@ export function SignInForm({
                 <Input
                   id='password'
                   type='password'
+                  placeholder='******'
                   min={6}
                   required
                   onChange={(e) => (passwordRef.current = e.target.value)}

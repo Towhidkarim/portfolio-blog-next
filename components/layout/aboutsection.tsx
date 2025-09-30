@@ -53,17 +53,14 @@ export function AboutSection() {
               </h3>
               <div className='space-y-4 text-muted-foreground leading-relaxed'>
                 <p>
-                  I'm a passionate full-stack developer with over 5 years of
-                  experience creating digital solutions that make a difference.
-                  I specialize in building scalable web applications using
-                  modern technologies like React, Next.js, and Node.js.
+                  I'm a passionate full-stack developer with experience in
+                  creating digital solutions that make a difference. I
+                  specialize in building scalable web applications using modern
+                  technologies like React, Next.js, and Node.js.
                 </p>
                 <p>
                   My journey in tech started with a curiosity about how websites
                   work, which led me to pursue a degree in Computer Science.
-                  Since then, I've worked with startups and established
-                  companies, helping them bring their ideas to life through
-                  code.
                 </p>
                 <p>
                   When I'm not coding, you can find me exploring new
@@ -88,17 +85,16 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Contact info and profile */}
           <div className='space-y-6'>
             {/* Profile image */}
             <Card className='overflow-hidden'>
               <CardContent className='p-0'>
                 <Image
-                  src='/placeholder.svg?height=300&width=300'
+                  src='/user-avatar.png'
                   alt='Profile picture'
                   width={300}
                   height={300}
-                  className='w-full h-64 object-cover'
+                  className='w-full h-64 object-contain'
                 />
               </CardContent>
             </Card>

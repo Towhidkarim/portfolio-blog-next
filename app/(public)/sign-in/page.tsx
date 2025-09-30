@@ -21,17 +21,7 @@ export default function SignInPage() {
 
         <SignInForm />
 
-        <div className='text-center'>
-          <p className='text-muted-foreground text-sm'>
-            Don't have an account?{' '}
-            <Link
-              href='/signup'
-              className='font-medium text-primary hover:text-primary/80 transition-colors'
-            >
-              Sign up here
-            </Link>
-          </p>
-        </div>
+        <div className='text-center'></div>
       </div>
     </div>
   );

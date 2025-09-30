@@ -47,8 +47,8 @@ export async function BlogSection() {
               {/* Blog post image */}
               <div className='relative overflow-hidden'>
                 <Image
-                  // src={post.thumbnailUrl || '/placeholder.svg'}
-                  src={'/placeholder.svg'}
+                  src={post.thumbnailUrl || '/placeholder.png'}
+                  // src={'/placeholder.svg'}
                   alt={post.title}
                   width={400}
                   height={200}
@@ -116,7 +116,7 @@ export async function BlogSection() {
         {/* View all posts button */}
         <div className='mt-12 text-center'>
           <Button variant='outline' size='lg' asChild>
-            <a href='/blog'>View All Posts</a>
+            <Link href='/blog'>View All Posts</Link>
           </Button>
         </div>
       </div>
