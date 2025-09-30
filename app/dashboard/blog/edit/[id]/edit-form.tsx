@@ -57,7 +57,7 @@ export default function BlogEditForm({ postData }: { postData: TPost }) {
       </div>
       <div className='flex lg:flex-row flex-col-reverse gap-2'>
         <div className='w-full lg:w-2/3'>
-          <h1 className='mb-8 font-bold text-3xl'>Create New Post</h1>
+          <h1 className='mb-8 font-bold text-3xl'>Edit Post</h1>
           <form className='space-y-6 max-w-3xl' onSubmit={handleSubmit}>
             <div className='space-y-2'>
               <Label htmlFor='title'>Title</Label>
@@ -92,7 +92,7 @@ export default function BlogEditForm({ postData }: { postData: TPost }) {
             </div>
 
             <Button type='submit' disabled={isSubmitting}>
-              {isSubmitting ? 'Creating...' : 'Create Post'}
+              {isSubmitting ? 'Upating...' : 'Edit Post'}
             </Button>
           </form>
         </div>

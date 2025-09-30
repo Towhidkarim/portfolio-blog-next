@@ -33,23 +33,27 @@ export default function ItemActions({ id, type, viewHref, editHref }: Props) {
   return (
     <div className='flex items-center gap-2'>
       {viewHref && (
-        <Link
-          href={viewHref}
-          title='View'
-          className='p-2 rounded-md text-muted-foreground hover:text-foreground'
-        >
-          <Eye className='w-4 h-4' />
-        </Link>
+        <Button variant='ghost' asChild>
+          <Link
+            href={viewHref}
+            title='View'
+            className='p-2 rounded-md text-muted-foreground hover:text-foreground'
+          >
+            <Eye className='w-4 h-4' />
+          </Link>
+        </Button>
       )}
 
       {editHref && (
-        <Link
-          href={editHref}
-          title='Edit'
-          className='p-2 rounded-md text-muted-foreground hover:text-foreground'
-        >
-          <Edit className='w-4 h-4' />
-        </Link>
+        <Button variant='ghost' asChild>
+          <Link
+            href={editHref}
+            title='Edit'
+            className='p-2 rounded-md text-muted-foreground hover:text-foreground'
+          >
+            <Edit className='w-4 h-4' />
+          </Link>
+        </Button>
       )}
 
       <AlertDialog>
