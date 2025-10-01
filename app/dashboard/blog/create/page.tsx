@@ -29,6 +29,10 @@ export default function CreatePage() {
       toast.error('Please Upload a thumbnail image');
       return;
     }
+    if (!content || content.trim() == '' || content.length < 3) {
+      toast.error('Please write some blog content before posting');
+      return;
+    }
     setIsSubmitting(true);
 
     const createPost = await CreatePostAction({

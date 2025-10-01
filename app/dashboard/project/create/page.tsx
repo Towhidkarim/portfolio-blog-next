@@ -41,6 +41,10 @@ export default function CreatePage() {
       toast.error('Please fill in required fields');
       return;
     }
+    if (features.length === 0) {
+      toast.error('Please fill in atleast one feature');
+      return;
+    }
     if (!imageUrl || imageUrl == '') {
       toast.error('Please upload the thumbnail image');
       return;
