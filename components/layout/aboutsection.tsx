@@ -147,10 +147,10 @@ export function AboutSection() {
 
                 {/* Download resume */}
                 <Button className='w-full' asChild>
-                  <a href='/resume.pdf' download>
+                  <Link href={BASIC_INFO.resume} download>
                     <Download size={18} className='mr-2' />
                     Download Resume
-                  </a>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Loader2, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
@@ -38,9 +38,18 @@ export function Header() {
               </a>
             ))}
 
-            <Button asChild>
+            <Button disabled={session.status === 'loading'} asChild>
               <Link href={session.data ? '/dashboard' : '/sign-in'}>
-                {session.data ? 'Dashboard' : 'Sign In'}
+                {session.data ? (
+                  'Dashboard'
+                ) : session.status === 'loading' ? (
+                  <span className='flex flex-row justify-center items-center gap-2'>
+                    <Loader2 className='animate-spin' />
+                    Loading...
+                  </span>
+                ) : (
+                  'Log In'
+                )}
               </Link>
             </Button>
           </nav>

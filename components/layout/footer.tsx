@@ -14,7 +14,7 @@ export function Footer() {
       { name: 'Contact', href: '#contact' },
     ],
     resources: [
-      { name: 'Resume', href: '/resume.pdf' },
+      { name: 'Resume', href: BASIC_INFO.resume },
       { name: 'All Projects', href: '/projects' },
       { name: 'All Posts', href: '/blog' },
       { name: 'Uses', href: '/uses' },
