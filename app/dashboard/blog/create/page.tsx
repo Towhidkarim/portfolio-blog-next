@@ -39,7 +39,8 @@ export default function CreatePage() {
     });
     if (createPost.succes) {
       toast.success('Post Creation successful!');
-      router.push('/#blog');
+      router.push('/dashboard');
+      router.refresh();
     }
     setIsSubmitting(false);
   };
