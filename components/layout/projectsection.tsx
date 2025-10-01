@@ -25,7 +25,7 @@ export async function ProjectsSection() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 60, tags: ['projects'] },
+    next: { tags: ['projects'] },
   });
   const resData: TResponse<TProject[]> = await res.json();
   return (
@@ -73,9 +73,9 @@ export async function ProjectsSection() {
               <CardContent className='space-y-4'>
                 {/* Features/Tech stack */}
                 <div className='flex flex-wrap gap-2'>
-                  {project.features.map((feature) => (
+                  {project.features.map((feature, index) => (
                     <Badge
-                      key={feature}
+                      key={feature + index}
                       variant='secondary'
                       className='text-xs'
                     >
