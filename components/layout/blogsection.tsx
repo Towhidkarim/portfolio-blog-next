@@ -17,6 +17,7 @@ export async function BlogSection() {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const res = await fetch(`${url}/api/posts/get-all`, {
     method: 'GET',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
     },
