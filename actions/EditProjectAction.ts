@@ -2,7 +2,7 @@
 
 import { TProject } from '@/zod/project.typeschema';
 import { TResponse } from '@/zod/response.typeschema';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function EditProjectAction({
   id,
@@ -33,6 +33,9 @@ export async function EditProjectAction({
   const data: TResponse<TProject> = await res.json();
   if (data.statusCode == 200) {
     revalidateTag('projects');
+    revalidatePath('/');
+    revalidatePath('/blog');
+    revalidatePath('/dashboard');
     return { succes: true };
   } else return { success: false };
 }

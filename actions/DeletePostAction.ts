@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function DeletePostAction(id: string) {
   if (!id) return { success: false };
@@ -18,6 +18,9 @@ export async function DeletePostAction(id: string) {
     console.log(data);
     if (data?.statusCode === 200) {
       revalidateTag('posts');
+      revalidatePath('/');
+      revalidatePath('/blog');
+      revalidatePath('/dashboard');
       return { success: true };
     }
   } catch (e) {

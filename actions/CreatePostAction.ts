@@ -28,7 +28,9 @@ export async function CreatePostAction({
   const data: TResponse<TPost> = await res.json();
   if (data.statusCode == 200) {
     revalidateTag('posts');
-    // revalidatePath('/');
+    revalidatePath('/');
+    revalidatePath('/blog');
+    revalidatePath('/dashboard');
     return { succes: true };
   } else return { success: false };
 }

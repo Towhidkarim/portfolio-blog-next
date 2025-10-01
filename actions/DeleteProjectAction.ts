@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function DeleteProjectAction(id: string) {
   if (!id) return { success: false };
@@ -17,6 +17,9 @@ export async function DeleteProjectAction(id: string) {
     const data = await res.json().catch(() => null);
     if (data?.statusCode === 200) {
       revalidateTag('projects');
+      revalidatePath('/');
+      revalidatePath('/projects');
+      revalidatePath('/dashboard');
       return { success: true };
     }
   } catch (e) {
